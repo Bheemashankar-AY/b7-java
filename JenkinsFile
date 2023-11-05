@@ -1,18 +1,18 @@
-pipeline {
+pipeline{
     agent any
-    stages {
-        stage('Clean') {
-            steps {
+    stages{
+        stage('Clean'){
+            steps{
                     sh 'mvn clean'
                 }
             }
-        stage('Install') {
-            steps {
+        stage('Install'){
+            steps{
                     sh 'mvn install'
                 }
             }
-            post {
-                always {
+            post{
+                always{
                     archiveArtifacts artifacts: 'target/**.jar', followSymlinks: false
                     junit 'target/surefire-reports/*.xml'					
                 }
