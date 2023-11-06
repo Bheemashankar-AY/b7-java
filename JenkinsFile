@@ -1,26 +1,24 @@
-pipeline{
-    agent any
-    stages{
-        stage('Clean'){
-            steps{
-                    sh 'mvn clean'
-                }
-            }
-        stage('Install'){
-            steps{
-                    sh 'mvn install'
-                }
-            }
-            post{
-                always{
-                    archiveArtifacts artifacts: 'target/**.jar', followSymlinks: false
-                    junit 'target/surefire-reports/*.xml'					
-                }
-            }
-        }
-		stage('clean ws'){
-		  setps{
-		    cleanWs()
+pipeline {
+
+	agent any
+	stages{   
+		stage(clean){
+			steps{
+				    sh 'mvn clean'
+			}
+			
 		}
+		
+		stage(install){
+			steps{
+				    sh 'mvn install'
+			     
+			}
+			post{
+			    always{
+			        archiveArtifacts artifacts: 'target/adi.jar', followSymlinks: false
+			    }
+			}
+		}
+	    }
 	}
-}
