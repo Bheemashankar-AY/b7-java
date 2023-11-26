@@ -3,7 +3,7 @@ pipeline{
 	agent any
 
 	environment {
-		DOCKERHUB_CREDENTIALS=credentials('docker-cred')
+		DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	}
 
 	stages {
@@ -11,7 +11,7 @@ pipeline{
 		stage('Build') {
 
 			steps {
-				sh 'docker build -t amazon/dockertask:latest -f Dockerfile .'
+				sh 'docker build -t cicd:1.0 -f Dockerfile .'
 			}
 		}
 
@@ -26,7 +26,7 @@ pipeline{
 
 			steps {
 				sh 'docker tag amazon/dockertask:latest chaitrasp/dockertask:latest'
-				sh 'docker push chaitrasp/dockertask:latest'
+				sh 'docker push bheema9161/dockertask:latest'
 			}
 		}
 	}
