@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/manjumanjrekar/sBoot.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Bheemashankar-AY/b7-java.git']]])
                 sh 'mvn clean install'
             }
         }
@@ -12,16 +12,16 @@ pipeline {
         stage('build docker image') {
             steps {
                 script {
-                    sh 'docker build -t manju:1.0 .'
+                    sh 'docker build -t cidc:1.0 .'
                 }
             }
         }
 stage('push image to Hub'){
 steps{
 script{
-     withCredentials([string(credentialsId: 'dockerhubpwd', variable: 'dockerhubpwd')]) {
-           sh 'docker login --username manju256 -p ${dockerhubpwd}'
-            sh 'docker push manju256/manju:1.0'
+     withCredentials([string(credentialsId: 'dockerpwd', variable: 'dockerpwd')]) {
+           sh 'docker login --username bheema9161 -p ${dockerpwd}'
+            sh 'docker push bheema9161/cicd:1.0'
 }
 
     }
